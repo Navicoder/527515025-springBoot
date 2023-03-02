@@ -9,12 +9,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/","/login").permitAll()//根路径和/login路径不拦截
+        http.authorizeRequests()
+                .antMatchers("/", "/login").permitAll()//根路径和/login路径不拦截
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -29,12 +28,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     //4在内存中配置两个用户 wyf 和 wisely ,密码和用户名一致,角色是 USER
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    		auth
+        auth
                 .inMemoryAuthentication()
                 .withUser("admin").password("admin").roles("USER")
                 .and()
                 .withUser("abel").password("abel").roles("USER");
     }
+
     //5忽略静态资源的拦截
     @Override
     public void configure(WebSecurity web) throws Exception {
